@@ -1,0 +1,81 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+
+// ============================================================
+// ENUMS
+// ============================================================
+
+/// Roles disponibles en el sistema
+enum Role {
+  ADMIN // Acceso total al sistema
+  USER  // Acceso estándar
+}
+
+// ============================================================
+// MODELOS
+// ============================================================
+
+/// Tabla de usuarios del sistema
+model User {
+  // --- Identificador ---
+  id String @id @default(uuid()) @map("id")
+
+  // --- Datos personales ---
+  name  String @map("name")
+  email String @unique @map("email")
+
+  // --- Seguridad ---
+  password String @map("password") // Siempre hasheado con bcryptjs
+  role     Role   @default(USER) @map("role")
+
+  // --- Estado ---
+  isActive Boolean @default(true) @map("is_active") // Soft delete / suspensión de cuenta
+
+  // --- Relaciones ---
+  sessions Session[] // Un usuario puede tener múltiples sesiones activas
+
+  // --- Timestamps ---
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // --- Nombre de la tabla en la BD ---
+  @@map("users")
+}
+
+/// Tabla de sesiones JWT activas por usuario
+/// Útil para invalidar tokens (logout, cambio de contraseña, etc.)
+model Session {
+  // --- Identificador ---
+  id String @id @default(uuid()) @map("id")
+
+  // --- Token ---
+  token     String   @unique @map("token")     // JWT almacenado (o su hash)
+  expiresAt DateTime @map("expires_at")        // Cuándo expira esta sesión
+  userAgent String?  @map("user_agent")        // Navegador / dispositivo (opcional)
+  ipAddress String?  @map("ip_address")        // IP de origen (opcional)
+
+  // --- Relación con usuario ---
+  userId String @map("user_id")
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  // onDelete: Cascade → si el usuario se elimina, sus sesiones también
+
+  // --- Timestamps ---
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // --- Nombre de la tabla en la BD ---
+  @@map("sessions")
+}

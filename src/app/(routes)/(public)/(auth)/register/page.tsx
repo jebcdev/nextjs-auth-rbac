@@ -1,8 +1,8 @@
-export default function Page() {
+export default function AuthRegisterPage() {
     return (
         <>
             <main>
-                <h1></h1>
+                <h1>register</h1>
             </main>
         </>
     );
