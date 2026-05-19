@@ -1,3 +1,11 @@
+export {
+    Avatar,
+    AvatarImage,
+    AvatarFallback,
+    AvatarGroup,
+    AvatarGroupCount,
+    AvatarBadge,
+} from "./avatar";
 export { Badge, badgeVariants } from "./badge";
 export { Button, buttonVariants } from "./button";
 export {
@@ -22,10 +30,27 @@ export {
     DialogTitle,
     DialogTrigger,
 } from "./dialog";
+export {
+    DropdownMenu,
+    DropdownMenuPortal,
+    DropdownMenuTrigger,
+    DropdownMenuContent,
+    DropdownMenuGroup,
+    DropdownMenuLabel,
+    DropdownMenuItem,
+    DropdownMenuCheckboxItem,
+    DropdownMenuRadioGroup,
+    DropdownMenuRadioItem,
+    DropdownMenuSeparator,
+    DropdownMenuShortcut,
+    DropdownMenuSub,
+    DropdownMenuSubTrigger,
+    DropdownMenuSubContent,
+} from "./dropdown-menu";
 export { SingleFormError } from "./form-error";
 export { Input } from "./input";
 export { Label } from "./label";
-export { LogoutButton, LogoutButtonWithText } from "./logout-button";
+export { LogoutButton } from "./logout-button";
 export { NoData } from "./no-data";
 export {
     Select,
