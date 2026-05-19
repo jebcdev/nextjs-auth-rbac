@@ -12,7 +12,6 @@ datasource db {
   provider = "postgresql"
 }
 
-
 // ============================================================
 // ENUMS
 // ============================================================
@@ -20,7 +19,7 @@ datasource db {
 /// Roles disponibles en el sistema
 enum Role {
   ADMIN // Acceso total al sistema
-  USER  // Acceso estándar
+  USER // Acceso estándar
 }
 
 // ============================================================
@@ -61,10 +60,10 @@ model Session {
   id String @id @default(uuid()) @map("id")
 
   // --- Token ---
-  token     String   @unique @map("token")     // JWT almacenado (o su hash)
-  expiresAt DateTime @map("expires_at")        // Cuándo expira esta sesión
-  userAgent String?  @map("user_agent")        // Navegador / dispositivo (opcional)
-  ipAddress String?  @map("ip_address")        // IP de origen (opcional)
+  token     String   @unique @map("token") // JWT almacenado (o su hash)
+  expiresAt DateTime @map("expires_at") // Cuándo expira esta sesión
+  userAgent String?  @map("user_agent") // Navegador / dispositivo (opcional)
+  ipAddress String?  @map("ip_address") // IP de origen (opcional)
 
   // --- Relación con usuario ---
   userId String @map("user_id")
@@ -72,7 +71,7 @@ model Session {
   // onDelete: Cascade → si el usuario se elimina, sus sesiones también
 
   // --- Timestamps ---
-
+  isActive  Boolean  @default(true) @map("is_active") // Para invalidar sesiones sin eliminarlas (ej. logout)
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 

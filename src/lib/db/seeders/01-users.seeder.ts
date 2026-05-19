@@ -23,6 +23,8 @@ export const usersSeeder = async () => {
                 role: Role.USER,
             },
         });
+
+        return { adminUser, regularUser };
     } catch (error) {
         console.error("❌ Error seeding tenants:", error);
         throw error;

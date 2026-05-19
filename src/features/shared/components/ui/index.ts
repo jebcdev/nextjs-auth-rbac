@@ -25,6 +25,7 @@ export {
 export { SingleFormError } from "./form-error";
 export { Input } from "./input";
 export { Label } from "./label";
+export { LogoutButton, LogoutButtonWithText } from "./logout-button";
 export { NoData } from "./no-data";
 export {
     Select,
